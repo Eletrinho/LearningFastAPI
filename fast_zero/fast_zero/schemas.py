@@ -13,5 +13,13 @@ class UserPublic(BaseModel):
     email: EmailStr
 
 
-class UserDB(UserSchema):
-    id: int
+class UserDB(UserPublic):
+    password: str
+
+
+class UserList(BaseModel):
+    users: list[UserPublic]
+
+
+class Message(BaseModel):
+    detail: str
