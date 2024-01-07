@@ -1,5 +1,7 @@
 from fastapi.testclient import TestClient
 
+from fast_zero.schemas import UserPublic
+
 
 def test_root_deve_retornar_200_e_ola_mundo(client):
     response = client.get('/')
@@ -10,56 +12,52 @@ def test_root_deve_retornar_200_e_ola_mundo(client):
 
 def test_create_user(client):
     response = client.post(
-        '/users/',
+        '/users',
         json={
-            'username': 'test',
+            'username': 'alice',
+            'email': 'alice@example.com',
             'password': 'secret',
-            'email': 'test@test.com',
         },
     )
-
     assert response.status_code == 201
     assert response.json() == {
+        'username': 'alice',
+        'email': 'alice@example.com',
         'id': 1,
-        'username': 'test',
-        'email': 'test@test.com',
     }
+
+
+def test_read_users_with_users(client, user):
+    user_schema = UserPublic.model_validate(user).model_dump()
+    response = client.get('/users/')
+    assert response.json() == {'users': [user_schema]}
 
 
 def test_read_users(client: TestClient):
     response = client.get('/users/')
 
     assert response.status_code == 200
-    assert response.json() == {
-        'users': [
-            {
-                'id': 1,
-                'username': 'test',
-                'email': 'test@test.com',
-            },
-        ],
-    }
+    assert response.json() == {'users': []}
 
 
-def test_update_user(client):
+def test_update_user(client, user):
     response = client.put(
         '/users/1',
         json={
             'username': 'bob',
-            'email': 'bob@test.com',
+            'email': 'bob@example.com',
             'password': 'mynewpassword',
         },
     )
-
     assert response.status_code == 200
     assert response.json() == {
-        'id': 1,
         'username': 'bob',
-        'email': 'bob@test.com',
+        'email': 'bob@example.com',
+        'id': 1,
     }
 
 
-def test_delete_user(client):
+def test_delete_user(client, user):
     response = client.delete('/users/1')
 
     assert response.status_code == 200
