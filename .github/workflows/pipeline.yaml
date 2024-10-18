@@ -16,9 +16,10 @@ jobs:
         run: pipx install poetry
 
       - name: Entrando na pasta
-        run: cd fast_zero
+        run: ls
 
       - name: Instalar o as dependências 
         run: poetry install
-      - name:
+        
+      - name: Executar testes
         run: poetry run task test
