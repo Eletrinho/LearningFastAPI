@@ -7,13 +7,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      
+ 
+      - name: List Parent Directory Contents
+        run: |
+          cd ..
+          ls -al
 
-      - name: List Root Directory Contents
-        run: ls -al /
+      - name: Change Directory
+        run: |
+          cd ..
+          cd fast_zero
 
-      - name: List Home Directory Contents
-        run: ls -al ~
-
-      - name: List Project Directory Contents
-        run: ls -al .
