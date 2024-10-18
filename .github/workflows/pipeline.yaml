@@ -8,4 +8,4 @@ jobs:
 
     steps:
       - name: Entrando na pasta
-        run: dir
+        run: pwd
