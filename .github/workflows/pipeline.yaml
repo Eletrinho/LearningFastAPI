@@ -7,14 +7,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
- 
-      - name: List Parent Directory Contents
-        run: |
-          cd ..
-          ls -al
+      - name: Copia os arquivos do repositório
+        uses: actions/checkout@v3
 
-      - name: Change Directory
-        run: |
-          cd ..
-          cd fast_zero
+      - name: Instalar o python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          
+      - name: Instalar o poetry
+        run: pipx install poetry
+      - name: Entrando na pasta
+        run: cd fast_zero
+        
+      - name: Instalar dependências
+        run: poetry install
+
+      - name: Executar testes
+        run: poetry run task test
+ 
 
