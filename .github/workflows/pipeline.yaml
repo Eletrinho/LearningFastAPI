@@ -11,13 +11,23 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Instalar o python
-        run: ls
-
-      - name: entrando
-        run: cd fast_zero
-
-      - name: mostra
-        run: ls
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       
+      - name: Instalar o poetry
+        run: pipx install poetry
+
+      - name: mostrando
+        run: ls
+          
+      - name: Entrando na pasta
+        run: cd fast_zero
+        
+      - name: Instalar dependências
+        run: poetry install
+
+      - name: Executar testes
+        run: poetry run task test
  
 
