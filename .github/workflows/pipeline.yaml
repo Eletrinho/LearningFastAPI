@@ -9,3 +9,12 @@ jobs:
     steps:
       - name: Entrando na pasta
         run: pwd
+        
+      - name: saindo da pasta
+        run: cd ..
+
+      - name: olhando
+        run : pwd
+
+      - name: entrando
+        run: cd fast_zero
