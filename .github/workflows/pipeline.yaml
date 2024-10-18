@@ -17,6 +17,7 @@ jobs:
           
       - name: Instalar o poetry
         run: pipx install poetry
+        
       - name: Entrando na pasta
         run: cd fast_zero
         
