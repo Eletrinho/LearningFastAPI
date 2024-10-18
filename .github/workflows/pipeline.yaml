@@ -21,11 +21,13 @@ jobs:
       - name: Listar conteúdo do diretório raiz
         run: ls -al
 
-      - name: Entrar na pasta 'fast_zero'
-        run: cd fast_zero && ls -al
-
-      - name: Instalar dependências
-        run: poetry install -C /home/runner/work/LearningFastAPI/fast_zero
+      - name: Entrar na pasta 'fast_zero' e instalar dependências
+        run: |
+          cd fast_zero
+          ls -al
+          poetry install
 
       - name: Executar testes
-        run: poetry run task test
+        run: |
+          cd fast_zero
+          poetry run task test
