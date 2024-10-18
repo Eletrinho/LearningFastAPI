@@ -7,5 +7,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Entrando na pasta
-        run: ls -al
+      
+
+      - name: List Root Directory Contents
+        run: ls -al /
+
+      - name: List Home Directory Contents
+        run: ls -al ~
+
+      - name: List Project Directory Contents
+        run: ls -al .
