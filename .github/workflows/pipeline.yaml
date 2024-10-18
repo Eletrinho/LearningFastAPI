@@ -25,7 +25,7 @@ jobs:
         run: cd fast_zero && ls -al
 
       - name: Instalar dependências
-        run: poetry install
+        run: poetry install -C /home/runner/work/LearningFastAPI/fast_zero
 
       - name: Executar testes
         run: poetry run task test
