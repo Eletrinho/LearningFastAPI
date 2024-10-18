@@ -13,10 +13,12 @@ jobs:
           python-version: '3.12'
 
       - name: Instalar o poetry 
-        uses: pip install poetry
+        run: pipx install poetry
 
       - name: Entrando na pasta
-        uses: cd fast_zero
+        run: cd fast_zero
 
       - name: Instalar o as dependências 
-        uses: poetry install
+        run: poetry install
+      - name:
+        run: poetry run task test
