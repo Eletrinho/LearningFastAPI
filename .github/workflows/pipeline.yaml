@@ -1,24 +1,39 @@
 name: Pipeline
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+
 on: [push, pull_request]
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      ALGORITHM: ${{ secrets.ALGORITHM }}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
+      
     steps:
+      - name: Copia os arquivos do repositório
+        uses: actions/checkout@v3
+
       - name: Instalar o python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Instalar o poetry 
+      - name: Instalar o poetry
         run: pipx install poetry
 
-      - name: Entrando na pasta
-        run: cd fast_zero
+      - name: Listar conteúdo do diretório raiz
+        run: ls -al
 
-      - name: Instalar o as dependências 
-        run: poetry install
-      - name:
-        run: poetry run task test
+      - name: Entrar na pasta 'fast_zero' e instalar dependências
+        run: |
+          cd fast_zero
+          ls -al
+          poetry install
+
+      - name: Executar testes
+        run: |
+          cd fast_zero
+          poetry run task test
