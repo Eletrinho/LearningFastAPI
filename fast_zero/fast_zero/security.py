@@ -1,4 +1,4 @@
-from datetime import UTC, datetime, timedelta
+import datetime as dt
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
@@ -50,7 +50,7 @@ async def get_current_user(
 
 def create_access_token(data: dict):
     to_encode = data.copy()
-    expire = datetime.now(UTC) + timedelta(
+    expire = dt.datetime.now(dt.timezone.utc) + dt.timedelta(
         minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
     )
     to_encode.update({'exp': expire})
